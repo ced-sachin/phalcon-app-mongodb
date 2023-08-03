@@ -1,8 +1,8 @@
 <?php
 
-use Phalcon\Mvc\Collection;
+use Phalcon\Mvc\Model;
 
-class Products extends Collection
+class Products extends Model
 {
     public $productname;
     public $category;

@@ -5,6 +5,9 @@ use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Http\Request;
+use MongoDB\Client;
+use MongoDB\Driver\ServerApi;
+
 
 class ProductsController extends Controller
 {
@@ -17,7 +20,15 @@ class ProductsController extends Controller
     {   
 
         if ($this->request->isPost()) {
-            $product = new Products();
+            $apiVersion = new ServerApi(ServerApi::V1);
+            $uri = 'mongodb+srv://sachinkumar:<@gtxrtx399#>@cluster0.ghmmlbu.mongodb.net/?retryWrites=true&w=majority';
+            $mongo = new MongoDB\Client($uri, [], ['serverApi' => $apiVersion]);
+            try{
+            $collection = $mongo->selectDatabase('Cluster0')->command(['ping' => 1]);
+                echo "Pinged your deployment. You successfully connected to MongoDB!\n";
+            } catch (Exception $e) {
+                printf($e->getMessage());
+            }
             echo '<pre>';print_r($this->request->getPost());die(__METHOD__);
             $product->productname = $this->request->getPost("productname");
             $product->category = $this->request->getPost("category");
