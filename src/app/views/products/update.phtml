@@ -1,0 +1,19 @@
+<!-- update.phtml -->
+<h2>Update Product</h2>
+<form method="post" action="<?php echo $this->url->get('products/update/' . $product['_id']); ?>">
+    <div class="form-group">
+        <label for="productname">Product Name</label>
+        <input type="text" name="productname" id="productname" value="<?php echo $product['productname']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" name="category" id="category" value="<?php echo $product['category']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" name="price" id="price" value="<?php echo $product['price']; ?>">
+    </div>
+    <!-- Add other fields as needed -->
+
+    <button type="submit">Update Product</button>
+</form>

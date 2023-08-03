@@ -1,0 +1,39 @@
+<!-- Product table -->
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <!-- Search form -->
+      <form method="GET" action="<?php echo $this->url->get('products/search'); ?>">
+          <label for="search">Search by Product Name:</label>
+          <input type="text" name="search" id="search" placeholder="Enter product name">
+          <input type="submit" value="Search">
+      </form>
+        <?php foreach ($products as $product): ?>
+            <tr>
+                <td><?php echo $product['productname']; ?></td>
+                <td><?php echo $product['category']; ?></td>
+                <td><?php echo $product['price']; ?></td>
+                <td><?php echo $product['stock']; ?></td>
+                <td>
+                    <a href="<?php echo $this->url->get('products/quickView/' . $product['_id']); ?>">Quick View</a>
+                    <!-- Add links for Update and Delete actions -->
+                </td>
+                <td>  
+                    <!-- Link to edit product details -->
+                    <a href="<?php echo $this->url->get('products/update/' . $product['_id']); ?>">Edit</a>
+
+                    <!-- Link to delete product -->
+                    <a href="<?php echo $this->url->get('products/delete/' . $product['_id']); ?>">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick View - <?php echo $product->productname; ?></title>
+</head>
+<body>
+    <h1>Quick View - <?php echo $product->productname; ?></h1>
+
+    <h2>Additional Fields</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Attribute Name</th>
+                <th>Attribute Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($product->additional_fields as $field): ?>
+                <tr>
+                    <td><?php echo $field->meta_label; ?></td>
+                    <td><?php echo $field->meta_value; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h2>Variations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Variation Name</th>
+                <th>Variation Value</th>
+                <th>Variation Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($product->variations as $variation): ?>
+                <tr>
+                    <td><?php echo $variation->variationname; ?></td>
+                    <td><?php echo $variation->variationvalue; ?></td>
+                    <td><?php echo $variation->variationprice; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>
