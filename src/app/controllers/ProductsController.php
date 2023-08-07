@@ -25,7 +25,7 @@ class ProductsController extends Controller
 
         // Query the collection and fetch all documents
         $products = $collection->find([]);
-
+         
         $this->view->products = $products;
     }
 

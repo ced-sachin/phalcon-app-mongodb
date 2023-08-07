@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Order</title>
+</head>
+<body>
+    <h1>Add Order</h1>
+    <form action="/orders/submit" method="POST">
+        <div class="form-group">
+            <label for="product">Choose Product:</label>
+            <?php
+            $productOptions = ['Select Product'];
+            foreach ($products as $productDocument) {
+                $product = (array) $productDocument;
+                if (isset($product['variations']) && !empty($product['variations'][0]['variationvalue'])) {
+                    $index = 0;
+                    foreach ($product['variations'] as $variation) {
+                        $productOptions[$product['_id'] . "_" .$index] =
+                            $product['productname'] . " " . $variation['variationvalue'] . ' - $' . $variation['variationprice'];
+                        $index += 1;
+                    }
+                } else {
+                    // echo '<pre>'; print_r($product['_id']); die();
+                    $productOptions[$product['_id'].''] = $product['productname'] . ' - $' . $product['price'];
+                }
+            }
+            //echo $this->tag->select(['name' => 'product', 'id' => 'product', 'class' => 'form-control', 'options' => $productOptions]);
+            ?>
+            <select name="product" id="product" class="form-control">
+                <?php foreach ($productOptions as $value => $label) { ?>
+                    <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="customer_name">Customer Name:</label>
+            <?php echo $this->tag->textField(['name' => 'customer_name', 'id' => 'customer_name', 'class' => 'form-control', 'required' => 'true']); ?>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <?php echo $this->tag->numericField(['name' => 'quantity', 'id' => 'quantity', 'class' => 'form-control', 'required' => 'true']); ?>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <?php
+            $statusOptions = [
+                'Paid' => 'Paid',
+                'Processing' => 'Processing',
+                'Dispatched' => 'Dispatched',
+                'Shipped' => 'Shipped',
+                'Refunded' => 'Refunded'
+            ];
+            echo $this->tag->select(['status', $statusOptions,  'class' => 'form-control']);
+           ?>
+        </div>
+
+        <div class="form-group">
+            <label for="order_date">Order Date:</label>
+            <?php echo $this->tag->textField(['name' => 'order_date', 'id' => 'order_date', 'class' => 'form-control', 'placeholder' => 'DD/MM/YYYY', 'required' => 'true']); ?>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit Order</button>
+    </form>
+</body>
+</html>
